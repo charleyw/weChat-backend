@@ -1,0 +1,6 @@
+aibang_api:
+  line: http://openapi.aibang.com/bus/lines
+  transfer: http://openapi.aibang.com/bus/transfer
+  stats: http://openapi.aibang.com/bus/stats
+
+aibang_api_key: 517dead47985e41ec11baa38362be69d

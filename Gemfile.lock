@@ -9,6 +9,9 @@ GEM
     ffi (1.9.3)
     haml (4.0.4)
       tilt
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.5)
     json (1.8.1)
     listen (1.0.3)
@@ -16,6 +19,7 @@ GEM
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
     mini_portile (0.5.2)
+    multi_xml (0.5.5)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.7.0)
@@ -66,10 +70,12 @@ PLATFORMS
 DEPENDENCIES
   capistrano
   haml
+  httparty
   json
   nokogiri
   rack-test
   rerun
+  rspec
   rspec-html-matchers
   shotgun
   sinatra

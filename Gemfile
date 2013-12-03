@@ -5,8 +5,10 @@ gem 'haml'
 gem 'sinatra'
 gem "nokogiri"
 gem "capistrano"
+gem "httparty"
 
 group :test do
+  gem 'rspec'
   gem 'rspec-html-matchers'
   gem 'rack-test'
 end
