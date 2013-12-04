@@ -4,8 +4,8 @@ class BusHelper
   end
 
   def bus_lines_running_time(query)
-    lines = query.scan(/\d+/)
-    bus_num = lines[0] if lines.length > 0
+    lines = query.scan(/\w*\d+/)
+    bus_num = lines[0].strip if lines.length > 0
     city = query.sub(/#{bus_num}.*/, '').strip
     city = "西安" if city.empty?
     bus_lines_results = @ai_bang_client.bus_lines(city, bus_num)
