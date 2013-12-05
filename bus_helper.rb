@@ -11,7 +11,8 @@ class BusHelper
     bus_lines_results = @ai_bang_client.bus_lines(city, bus_num)
     result = "";
     bus_lines_results.each do |line|
-      result += line["name"] + " " + line["info"].scan(/\d{1,2}:\d{1,2}-{1,2}\d{1,2}:\d{1,2}/)[0] + "\n\n"
+      running_time = line["info"].scan(/\d{1,2}[:：]\d{1,2}-{1,2}\d{1,2}[:：]\d{1,2}/)[0]
+      result += line["name"] + " " + running_time + "\n\n" if !running_time.nil?
     end
     result
   end

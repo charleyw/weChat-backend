@@ -1,0 +1,7 @@
+:ai_bang_api: http://openapi.aibang.com/bus
+
+:ai_bang_api_key: 517dead47985e41ec11baa38362be69d
+
+:subscribe_message: 感谢关注等公交，现在等公交支持查询公交线路的运行时间，发送：城市名公交号，如：西安710，就可以获取到公交的运行时间
+
+:unsubscribe_message: 感谢您对等公交的关注，希望将来能再遇到您！
