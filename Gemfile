@@ -3,9 +3,10 @@ source 'http://rubygems.org'
 gem 'json'
 gem 'haml'
 gem 'sinatra'
-gem "nokogiri"
-gem "capistrano"
-gem "httparty"
+gem 'nokogiri'
+gem 'capistrano'
+gem 'httparty'
+gem 'thin'
 
 group :test do
   gem 'rspec'
@@ -14,6 +15,6 @@ group :test do
 end
 
 group :development do
-  gem "rerun"
-  gem "shotgun"
+  gem 'rerun'
+  gem 'shotgun'
 end

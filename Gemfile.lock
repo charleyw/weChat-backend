@@ -5,7 +5,9 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 0.0.23)
+    daemons (1.1.9)
     diff-lcs (1.2.5)
+    eventmachine (1.0.3)
     ffi (1.9.3)
     haml (4.0.4)
       tilt
@@ -61,6 +63,10 @@ GEM
       term-ansicolor
     term-ansicolor (1.2.2)
       tins (~> 0.8)
+    thin (1.6.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 1.0.0)
+      rack (>= 1.0.0)
     tilt (1.4.1)
     tins (0.13.1)
 
@@ -79,3 +85,4 @@ DEPENDENCIES
   rspec-html-matchers
   shotgun
   sinatra
+  thin
