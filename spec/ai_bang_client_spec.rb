@@ -1,5 +1,5 @@
 require 'rspec'
-require './ai_bang_client'
+require_relative '../lib/ai_bang_client'
 
 class MockResponse
   def parsed_response
