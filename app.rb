@@ -22,7 +22,7 @@ post '/' do
   haml :weixin_text, :locals => {
       :myAccount => doc.at_css("ToUserName").child.text,
       :userAccount => doc.at_css("FromUserName").child.text,
-      :content => handler.send(:"on_#{message_type}_message", request_content)
+      :content => handler.send(:"handle_#{message_type}_message", request_content)
   }
 end
 
