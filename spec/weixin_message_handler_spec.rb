@@ -12,13 +12,13 @@ PARSED_PARAMS={
 
 describe 'weixin message handler' do
   it 'should call text message handler when invoke handle with text message' do
-    WeiXinMessageDispatcher.any_instance.should_receive(:handle_text_message)
-    dispatcher = WeiXinMessageDispatcher.new
+    MessageDispatcher.any_instance.should_receive(:handle_text_message)
+    dispatcher = MessageDispatcher.new
     dispatcher.on TEXT_MESSAGE_REQUEST
   end
 
   it 'should parse params from request' do
-    dispatcher = WeiXinMessageDispatcher.new
+    dispatcher = MessageDispatcher.new
     dispatcher.parse_params(TEXT_MESSAGE_REQUEST).should == PARSED_PARAMS
   end
 

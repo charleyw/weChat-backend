@@ -1,33 +1,25 @@
-require 'sinatra'
-require 'nokogiri'
 require 'yaml'
 
 require './lib/ai_bang_client'
 require './lib/bus_helper'
-require './lib/wei_xin_message_dispatcher'
+require './lib/message_dispatcher'
 
 CONFIG = YAML.load_file("./config/#{ENV['RACK_ENV']}.yml")
 
-get '/' do
-  params[:echostr]
+on_text do
+  aibang_client = AiBangClient.new CONFIG[:ai_bang_api], CONFIG[:ai_bang_api_key]
+  bus_helper = BusHelper.new aibang_client
+  bus_helper.bus_lines_running_time(params[:Content])
 end
 
-post '/' do
-  doc = Nokogiri::XML::Document.parse request.body
-  message_type = doc.at_css("MsgType").child.text
-
-  handler = WeiXinMessageDispatcher.new
-  request_content = handler.send :"#{message_type}_request_body", doc
-
-  haml :weixin_text, :locals => {
-      :myAccount => doc.at_css("ToUserName").child.text,
-      :userAccount => doc.at_css("FromUserName").child.text,
-      :content => handler.send(:"handle_#{message_type}_message", request_content)
-  }
-end
-
-helpers do
-  def cdata content
-    "<![CDATA[#{content}]]>"
+on_event do
+  if params[:Content].eql? 'subscribe'
+    CONFIG[:subscribe_message]
+  else
+    CONFIG[:unsubscribe_message]
   end
+end
+
+on_voice do
+  puts 'on voice message'
 end
