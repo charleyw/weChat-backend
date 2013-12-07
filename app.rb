@@ -4,7 +4,7 @@ require 'yaml'
 
 require './lib/ai_bang_client'
 require './lib/bus_helper'
-require './lib/wei_xin_request_handler'
+require './lib/wei_xin_message_dispatcher'
 
 CONFIG = YAML.load_file("./config/#{ENV['RACK_ENV']}.yml")
 
@@ -16,7 +16,7 @@ post '/' do
   doc = Nokogiri::XML::Document.parse request.body
   message_type = doc.at_css("MsgType").child.text
 
-  handler = WeiXinRequestHandler.new CONFIG
+  handler = WeiXinMessageDispatcher.new
   request_content = handler.send :"#{message_type}_request_body", doc
 
   haml :weixin_text, :locals => {

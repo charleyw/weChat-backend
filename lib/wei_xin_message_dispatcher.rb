@@ -1,7 +1,20 @@
-class WeiXinRequestHandler
-  def initialize config
-    @config = config
+class WeiXinMessageDispatcher
+  attr_accessor :params
+
+  def on request_body
+    @params = parse_params request_body
+    msg_type = params[:MsgType]
+    send(:"handle_#{msg_type}_message")
   end
+
+  def self.on_text_message
+    define_method(:handle_text_message, &block)
+  end
+
+  def self.on_event_message
+    define_method(:handle_event_message, &block)
+  end
+
   def handle_text_message request_content
     aibang_client = AiBangClient.new @config[:ai_bang_api], @config[:ai_bang_api_key]
     bus_helper = BusHelper.new aibang_client
@@ -29,5 +42,14 @@ class WeiXinRequestHandler
 
   def voice_request_body doc
     doc.at_css('Recognition').child.text
+  end
+
+  def parse_params(request_body)
+    doc = Nokogiri::XML::Document.parse request_body
+    result = {}
+    doc.at_css('xml').children.each do |child|
+      result[child.name.to_sym] = child.child.text
+    end
+    result
   end
 end
