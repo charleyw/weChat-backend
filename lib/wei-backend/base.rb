@@ -4,7 +4,7 @@ module WeiBackend
 
     def on message_type, params
       @params = params
-      results = send(:"handle_#{message_type}_message")
+      results = send(:"handle_#{message_type.downcase}_message")
       create_model results
     end
 
@@ -48,6 +48,10 @@ module WeiBackend
       define_method(:handle_voice_message, &block)
     end
 
+    def self.on_location &block
+      define_method(:handle_location_message, &block)
+    end
+
 
   end
 
@@ -61,7 +65,7 @@ module WeiBackend
       end
     end
 
-    delegate :on_text, :on_event, :on_voice
+    delegate :on_text, :on_event, :on_voice, :on_location
 
     class << self
       attr_accessor :target

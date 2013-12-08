@@ -17,7 +17,7 @@ describe 'weixin message handler' do
   it 'should return image text format result when model is a hash' do
     dispatcher = WeiBackend::MessageDispatcher.new
     dispatcher.params=PARSED_PARAMS
-    dispatcher.create_model({:url => "http://adc/"}).should == {:format=>"image_text", :model=>{:article_count=>1, :articles=>{:url=>"http://adc/"}, :myAccount=>"toUser", :userAccount=>"fromUser"}}
+    dispatcher.create_model({:url => "http://adc/"}).should == {:format=>"image_text", :model=>{:article_count=>1, :articles=>[{:url=>"http://adc/"}], :myAccount=>"toUser", :userAccount=>"fromUser"}}
   end
 
 end
