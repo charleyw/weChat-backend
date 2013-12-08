@@ -9,7 +9,7 @@ module WeiBackend
     end
 
     def create_model data
-      data.is_a?(Hash)? image_text_message(data) : text_message(data)
+      data.is_a?(Hash) || data.is_a?(Array) ? image_text_message(data) : text_message(data)
     end
 
     def text_message(data)
@@ -24,7 +24,7 @@ module WeiBackend
           :format => 'image_text',
           :model => {
               :article_count => model.is_a?(Array) ? model.length : 1,
-              :articles => model
+              :articles => model.is_a?(Array) ? model : [model]
           }.merge(account_info)
       }
     end
