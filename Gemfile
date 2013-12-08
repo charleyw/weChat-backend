@@ -7,6 +7,7 @@ gem 'nokogiri'
 gem 'capistrano'
 gem 'httparty'
 gem 'thin'
+gem 'hash_validator'
 
 group :test do
   gem 'rspec'

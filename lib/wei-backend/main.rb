@@ -7,14 +7,11 @@ end
 
 post '/' do
   request.body.rewind
-  doc = Nokogiri::XML::Document.parse request.body.read
+  weixin_params = WeiBackend::Utils.parse_params request.body.read
   handler = WeiBackend::MessageDispatcher.new
-  request.body.rewind
-  haml :weixin_text, :views=>File.dirname(__FILE__)+'/views', :locals => {
-      :myAccount => doc.at_css('ToUserName').child.text,
-      :userAccount => doc.at_css('FromUserName').child.text,
-      :content => handler.on(request.body.read)
-  }
+  results = handler.on weixin_params[:MsgType], weixin_params
+
+  haml results[:format].to_sym, :views => File.dirname(__FILE__)+'/wei-templates', :locals => results[:model]
 end
 
 helpers do

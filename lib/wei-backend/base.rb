@@ -2,10 +2,38 @@ module WeiBackend
   class MessageDispatcher
     attr_accessor :params
 
-    def on request_body
-      @params = parse_params request_body
-      msg_type = params[:MsgType]
-      send(:"handle_#{msg_type}_message")
+    def on message_type, params
+      @params = params
+      results = send(:"handle_#{message_type}_message")
+      create_model results
+    end
+
+    def create_model data
+      data.is_a?(Hash)? image_text_message(data) : text_message(data)
+    end
+
+    def text_message(data)
+      {
+          :format => 'text',
+          :model => {:content => data}.merge(account_info)
+      }
+    end
+
+    def image_text_message model
+      {
+          :format => 'image_text',
+          :model => {
+              :article_count => model.is_a?(Array) ? model.length : 1,
+              :articles => model
+          }.merge(account_info)
+      }
+    end
+
+    def account_info
+      {
+          :myAccount => params[:ToUserName],
+          :userAccount => params[:FromUserName],
+      }
     end
 
     def self.on_text &block
@@ -20,14 +48,7 @@ module WeiBackend
       define_method(:handle_voice_message, &block)
     end
 
-    def parse_params(request_body)
-      doc = Nokogiri::XML::Document.parse request_body
-      result = {}
-      doc.at_css('xml').element_children.each do |child|
-        result[child.name.to_sym] = child.child.text
-      end
-      result
-    end
+
   end
 
   module Delegator
