@@ -8,14 +8,14 @@ describe 'app' do
   end
 
   it 'should echo text request message when receive a text request message' do
-    WeiXin::MessageDispatcher.any_instance.should_receive(:handle_text_message){'results'}
+    WeiBackend::MessageDispatcher.any_instance.should_receive(:handle_text_message){'results'}
     post '/', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
     last_response.body.should include '<Content><![CDATA[results]]></Content>'
   end
 
   it 'should echo event request message when receive a event message' do
-    WeiXin::MessageDispatcher.any_instance.should_receive(:handle_event_message){'results'}
+    WeiBackend::MessageDispatcher.any_instance.should_receive(:handle_event_message){'results'}
     post '/', EVENT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
     last_response.body.should include '<Content><![CDATA[results]]></Content>'

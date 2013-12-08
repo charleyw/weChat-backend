@@ -5,7 +5,7 @@ require 'rack'
 require 'rack-protection'
 require 'rspec'
 require 'rspec-html-matchers'
-require './app.rb'
+require './lib/wei-backend'
 
 TEXT_MESSAGE_REQUEST='<xml><ToUserName><![CDATA[toUser]]></ToUserName><FromUserName>'+
     '<![CDATA[fromUser]]></FromUserName><CreateTime>1348831860</CreateTime><MsgType><![CDATA[text]]></MsgType>'+

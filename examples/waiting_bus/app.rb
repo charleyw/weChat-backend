@@ -1,8 +1,8 @@
 require 'yaml'
 
-require './lib/ai_bang_client'
-require './lib/bus_helper'
-require './lib/message_dispatcher'
+require './ai_bang_client'
+require './bus_helper'
+require_relative '../../lib/wei-backend'
 
 CONFIG = YAML.load_file("./config/#{ENV['RACK_ENV']}.yml")
 

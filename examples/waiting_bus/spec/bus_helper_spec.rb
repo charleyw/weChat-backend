@@ -1,6 +1,6 @@
 require 'rspec'
-require_relative '../lib/ai_bang_client'
-require_relative '../lib/bus_helper'
+require_relative '../ai_bang_client'
+require_relative '../bus_helper'
 
 describe "bus helper" do
 

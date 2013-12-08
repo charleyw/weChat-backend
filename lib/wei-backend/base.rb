@@ -1,7 +1,4 @@
-require 'sinatra'
-require 'nokogiri'
-
-module WeiXin
+module WeiBackend
   class MessageDispatcher
     attr_accessor :params
 
@@ -50,29 +47,5 @@ module WeiXin
     end
 
     self.target = MessageDispatcher
-  end
-end
-
-extend WeiXin::Delegator
-
-get '/' do
-  params[:echostr]
-end
-
-post '/' do
-  request.body.rewind
-  doc = Nokogiri::XML::Document.parse request.body.read
-  handler = WeiXin::MessageDispatcher.new
-  request.body.rewind
-  haml :weixin_text, :views=>File.dirname(__FILE__)+'/views', :locals => {
-      :myAccount => doc.at_css('ToUserName').child.text,
-      :userAccount => doc.at_css('FromUserName').child.text,
-      :content => handler.on(request.body.read)
-  }
-end
-
-helpers do
-  def cdata content
-    "<![CDATA[#{content}]]>"
   end
 end
