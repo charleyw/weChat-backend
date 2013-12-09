@@ -12,4 +12,7 @@ Gem::Specification.new 'wei-backend', WeiBackend::VERSION do |s|
   s.test_files        = s.files.select { |p| p =~ /^spec\/.*_spec.rb/ }
 
   s.add_dependency 'sinatra', '~> 1.4.4'
+  s.add_dependency 'nokogiri', '~> 1.6.0'
+  s.add_dependency 'haml', '~> 4.0.4'
+  s.add_dependency 'json', '~> 1.8'
 end
