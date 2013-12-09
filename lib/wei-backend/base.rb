@@ -57,11 +57,11 @@ module WeiBackend
     end
 
     def self.on_subscribe &block
-      define_method(:handle_location_message, &block)
+      define_method(:handle_subscribe_message, &block)
     end
 
     def self.on_unsubscribe &block
-      define_method(:handle_location_message, &block)
+      define_method(:handle_unsubscribe_message, &block)
     end
 
 
