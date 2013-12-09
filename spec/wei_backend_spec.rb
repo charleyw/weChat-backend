@@ -39,14 +39,24 @@ describe 'app' do
     last_response.body.should include '<Title><![CDATA[title1]]></Title>'
   end
 
-  it 'should echo event request message when receive a event message' do
-    WeiBackend::MessageDispatcher.on_event do
-      'hello event'
+  it 'should echo location message when receive a location event message' do
+    WeiBackend::MessageDispatcher.on_location do
+      "location event: #{params[:Latitude]}"
     end
 
-    post '/', EVENT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
+    post '/', LOCATION_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
-    last_response.body.should include '<Content><![CDATA[hello event]]></Content>'
+    last_response.body.should include '<Content><![CDATA[location event: 23.137466]]></Content>'
+  end
+
+  it 'should echo location message when receive a location event message' do
+    WeiBackend::MessageDispatcher.on_subscribe do
+      'Thank you for subscribe!'
+    end
+
+    post '/', LOCATION_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml'
+    last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
+    last_response.body.should include '<Content><![CDATA[Thank you for subscribe!]]></Content>'
   end
 
 end

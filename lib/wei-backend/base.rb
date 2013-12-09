@@ -8,6 +8,10 @@ module WeiBackend
       create_model results
     end
 
+    def handle_event_message
+      send(:"handle_#{params[:Event].downcase}_message")
+    end
+
     def create_model data
       data.is_a?(Hash) || data.is_a?(Array) ? image_text_message(data) : text_message(data)
     end
@@ -52,6 +56,14 @@ module WeiBackend
       define_method(:handle_location_message, &block)
     end
 
+    def self.on_subscribe &block
+      define_method(:handle_location_message, &block)
+    end
+
+    def self.on_unsubscribe &block
+      define_method(:handle_location_message, &block)
+    end
+
 
   end
 
@@ -65,7 +77,7 @@ module WeiBackend
       end
     end
 
-    delegate :on_text, :on_event, :on_voice, :on_location
+    delegate :on_text, :on_event, :on_voice, :on_location, :on_subscribe, :on_unsubscribe
 
     class << self
       attr_accessor :target
