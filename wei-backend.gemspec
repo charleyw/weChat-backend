@@ -6,6 +6,7 @@ Gem::Specification.new 'wei-backend', WeiBackend::VERSION do |s|
   s.summary           = 'Best DSL for weixin development'
   s.authors           = ['Wang Chao']
   s.email             = 'cwang8023@gmail.com'
+  s.homepage          = 'https://github.com/charleyw/weixin-sinatra'
   s.license           = 'MIT'
   s.files             = `git ls-files`.split("\n") - %w[.gitignore .travis.yml .ruby-version .ruby-gemset]
   s.test_files        = s.files.select { |p| p =~ /^spec\/.*_spec.rb/ }
