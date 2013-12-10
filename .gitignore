@@ -3,3 +3,4 @@
 *.pid
 tmp
 log
+wei-backend*.gem
