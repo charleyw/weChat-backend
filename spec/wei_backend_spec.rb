@@ -54,7 +54,7 @@ describe 'app' do
       'Thank you for subscribe!'
     end
 
-    post '/', LOCATION_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml'
+    post '/', SUBSCRIBE_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
     last_response.body.should include '<Content><![CDATA[Thank you for subscribe!]]></Content>'
   end

@@ -28,7 +28,7 @@ LOCATION_EVENT_REQUEST='<xml>
 
 SUBSCRIBE_EVENT_REQUEST='<xml>
 	<ToUserName><![CDATA[toUser]]></ToUserName>
-	<FromUserName><![CDATA[FromUser]]></FromUserName>
+	<FromUserName><![CDATA[fromUser]]></FromUserName>
 	<CreateTime>123456789</CreateTime>
 	<MsgType><![CDATA[event]]></MsgType>
 	<Event><![CDATA[subscribe]]></Event>
