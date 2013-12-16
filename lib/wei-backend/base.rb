@@ -40,30 +40,11 @@ module WeiBackend
       }
     end
 
-    def self.on_text &block
-      define_method(:handle_text_message, &block)
+    %w(text event voice location subscribe unsubscribe).each do |type|
+      define_singleton_method(:"on_#{type}") do |&block|
+        define_method(:"handle_#{type}_message", &block)
+      end
     end
-
-    def self.on_event &block
-      define_method(:handle_event_message, &block)
-    end
-
-    def self.on_voice &block
-      define_method(:handle_voice_message, &block)
-    end
-
-    def self.on_location &block
-      define_method(:handle_location_message, &block)
-    end
-
-    def self.on_subscribe &block
-      define_method(:handle_subscribe_message, &block)
-    end
-
-    def self.on_unsubscribe &block
-      define_method(:handle_unsubscribe_message, &block)
-    end
-
 
   end
 
