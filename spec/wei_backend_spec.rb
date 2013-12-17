@@ -29,8 +29,18 @@ describe 'app' do
 
   it 'should return news message when receive a text request message and user defined a multi-news' do
     WeiBackend::MessageDispatcher.on_text do
-      [{:title => 'title', :description => 'desc', :picture_url => 'pic url', :url => 'url'},
-      {:title => 'title1', :description => 'desc1', :picture_url => 'pic url1', :url => 'url1'}]
+          [{
+               :title => 'title',
+               :description => 'desc',
+               :picture_url => 'pic url',
+               :url => 'url'
+           },
+           {
+               :title => 'title1',
+               :description => 'desc1',
+               :picture_url => 'pic url1',
+               :url => 'url1'
+           }]
     end
 
     post '/', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
