@@ -48,7 +48,7 @@
 	| 图文事件 | ruby hash值  |
 
 ## 如何使用
-* 创建一个文件，如app.js，写入如下内容：
+* 创建一个文件，如app.rb，写入如下内容：
 
 		require ‘sinatra’
 		require 'wei-backend'
@@ -156,4 +156,4 @@ EOF
 	
 ## Liscense
 
-© 2011 Wang Chao. This code is distributed under the MIT license.
+© 2013 Wang Chao. This code is distributed under the MIT license.
