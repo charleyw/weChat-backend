@@ -157,3 +157,6 @@ EOF
 ## Liscense
 
 © 2013 Wang Chao. This code is distributed under the MIT license.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/charleyw/wechat-backend/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
