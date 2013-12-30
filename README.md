@@ -1,4 +1,6 @@
 ## 微信公众平台后台框架
+[![Build Status](https://travis-ci.org/charleyw/weChat-backend.png?branch=master)](https://travis-ci.org/charleyw/weChat-backend)
+
 微信公众平台 后台框架，基于sinatra，使用DSL的思想帮助你以最快的**速度**开启微信公众平台开发. 
 
 ## 仅需3步,一个文件创建一个微信后台程序
