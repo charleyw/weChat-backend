@@ -13,7 +13,12 @@ module WeiBackend
     end
 
     def create_model data
-      data.is_a?(Hash) || data.is_a?(Array) ? image_text_message(data) : text_message(data)
+      case data
+        when Hash, Array
+          image_text_message(data)
+        else
+          text_message(data)
+      end
     end
 
     def text_message(data)
