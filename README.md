@@ -134,14 +134,16 @@ EOF
 
 
 * ### on_location
-当用户想微信公众号分享位置信息时，微信会POST相应的位置信息到公众号后台服务器		
+当用户向微信公众号分享位置信息时，微信会POST相应的位置信息到公众号后台服务器
 	* `params[:ToUserName]`: 发送请求的用户
 	* `params[:FromUserName]`: 公众号用户
 	* `params[:CreateTime]`: 创建时间
 	* `params[:MsgType]`: 消息类型，在这里是location
-	* `params[:Latitude]`: 地理位置纬度
-	* `params[:Longitude]`: 地理位置经度				* `params[:Precision]`: 地理位置精度
-		 			
+	* `params[:Location_X]`: 地理位置纬度
+	* `params[:Location_Y]`: 地理位置经度
+	* `params[:Scale]`: 地图缩放大小
+	* `params[:Label]`: 地理位置信息
+
 ## 返回消息
 * 返回文本消息：
 
