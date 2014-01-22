@@ -45,9 +45,16 @@ module WeiBackend
       }
     end
 
-    %w(text event voice location subscribe unsubscribe).each do |type|
-      define_singleton_method(:"on_#{type}") do |&block|
-        define_method(:"handle_#{type}_message", &block)
+    class << self
+      %w(text event voice location subscribe unsubscribe).each do |type|
+        define_method(:"on_#{type}") do |&block|
+          define_method(:"handle_#{type}_message", &block)
+        end
+      end
+
+      def token str=nil
+        return @token if str.nil?
+        @token = str
       end
     end
 
@@ -63,7 +70,7 @@ module WeiBackend
       end
     end
 
-    delegate :on_text, :on_event, :on_voice, :on_location, :on_subscribe, :on_unsubscribe
+    delegate :on_text, :on_event, :on_voice, :on_location, :on_subscribe, :on_unsubscribe, :token
 
     class << self
       attr_accessor :target
