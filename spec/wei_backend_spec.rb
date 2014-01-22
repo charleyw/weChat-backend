@@ -79,4 +79,16 @@ describe 'app' do
     last_response.body.should include '<Content><![CDATA[Thank you for subscribe!]]></Content>'
   end
 
+  it 'should do something when user have set token' do
+    WeiBackend::MessageDispatcher.on_subscribe do
+      'Thank you for subscribe!'
+    end
+
+    WeiBackend::MessageDispatcher.token 'combustest'
+
+    post '/?signature=0d144fa22f4119dbb2f6fe9710f3b732fb45092b&timestamp=1388674716&nonce=1388564676', SUBSCRIBE_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml', 'token' => 'token'
+    last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
+    last_response.body.should include '<Content><![CDATA[Thank you for subscribe!]]></Content>'
+  end
+
 end
