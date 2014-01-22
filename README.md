@@ -23,6 +23,8 @@
 		require 'sinatra'
 		require 'wei-backend'
 		
+		token "mytoken"
+		
 		on_text do
 			"你发送了如下内容: #{params[:Content]}!!"
 		end
