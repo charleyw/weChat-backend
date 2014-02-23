@@ -3,7 +3,7 @@ describe 'app' do
   include Rack::Test::Methods
 
   it 'should echo string when request with echostr parameter' do
-    get '/?echostr=test'
+    get '/weixin?echostr=test'
     last_response.body.should include 'test'
   end
 
@@ -12,7 +12,7 @@ describe 'app' do
       'hello world'
     end
 
-    post '/', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
+    post '/weixin', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
     last_response.body.should include '<Content><![CDATA[hello world]]></Content>'
   end
@@ -22,7 +22,7 @@ describe 'app' do
       {:title => 'title', :description => 'desc', :picture_url => 'pic url', :article_url => 'article url'}
     end
 
-    post '/', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
+    post '/weixin', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
     last_response.body.should include '<Url><![CDATA[article url]]></Url>'
   end
@@ -53,7 +53,7 @@ describe 'app' do
            }]
     end
 
-    post '/', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
+    post '/weixin', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
     last_response.body.should include '<Title><![CDATA[title]]></Title>'
     last_response.body.should include '<Title><![CDATA[title1]]></Title>'
@@ -64,7 +64,7 @@ describe 'app' do
       "location event: #{params[:Latitude]}"
     end
 
-    post '/', LOCATION_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml'
+    post '/weixin', LOCATION_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
     last_response.body.should include '<Content><![CDATA[location event: 23.137466]]></Content>'
   end
@@ -74,7 +74,7 @@ describe 'app' do
       'Thank you for subscribe!'
     end
 
-    post '/', SUBSCRIBE_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml'
+    post '/weixin', SUBSCRIBE_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
     last_response.body.should include '<Content><![CDATA[Thank you for subscribe!]]></Content>'
   end
@@ -86,7 +86,7 @@ describe 'app' do
 
     WeiBackend::MessageDispatcher.token 'combustest'
 
-    post '/?signature=0d144fa22f4119dbb2f6fe9710f3b732fb45092b&timestamp=1388674716&nonce=1388564676', SUBSCRIBE_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml', 'token' => 'token'
+    post '/weixin?signature=0d144fa22f4119dbb2f6fe9710f3b732fb45092b&timestamp=1388674716&nonce=1388564676', SUBSCRIBE_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml', 'token' => 'token'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
     last_response.body.should include '<Content><![CDATA[Thank you for subscribe!]]></Content>'
   end

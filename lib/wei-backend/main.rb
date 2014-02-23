@@ -16,11 +16,11 @@ token_proc = proc {
   WeiBackend::MessageDispatcher.token
 }
 
-get '/', :access_token => token_proc do
+get '/weixin', :access_token => token_proc do
   params[:echostr]
 end
 
-post '/', :access_token => token_proc do
+post '/weixin', :access_token => token_proc do
   request.body.rewind
   weixin_params = WeiBackend::Utils.parse_params request.body.read
   handler = WeiBackend::MessageDispatcher.new
