@@ -74,10 +74,15 @@
 * 启动
  
 		ruby app.rb
+* 路径
+	`/weixin`被保留用作接受请求的路径，如你在本地直接启动之后，可以使用下列路径使用服务：
+	
+		http://localhost:4567/weixin
+
 * 测试
 
 	```
-curl -H 'Content-type:text/xml' -d@- localhost:4567 << EOF
+curl -H 'Content-type:text/xml' -d@- localhost:4567/weixin << EOF
 	<xml>
 	 <ToUserName><![CDATA[toUser]]></ToUserName>
 	 <FromUserName><![CDATA[fromUser]]></FromUserName> 
