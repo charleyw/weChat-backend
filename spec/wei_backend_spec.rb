@@ -32,7 +32,7 @@ describe 'app' do
       {:title => 'title', :description => 'desc', :music_url => 'url', :hd_music_url => 'hd music url'}
     end
 
-    post '/', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
+    post '/weixin', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
     last_response.body.should include '<MusicUrl><![CDATA[url]]></MusicUrl>'
   end
