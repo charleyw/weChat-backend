@@ -13,12 +13,23 @@ module WeiBackend
     end
 
     def create_model data
-      case data
-        when Hash, Array
-          image_text_message(data)
-        else
-          text_message(data)
+      if (data.is_a?(Hash)||data.is_a?(Array)) && !data[:article_url].nil?
+        image_text_message(data)
+      elsif data.is_a?(Hash) && !data[:music_url].nil?
+        music_message(data)
+      else
+        text_message(data)
       end
+    end
+
+    def music_message(model)
+      {
+          :format => 'music',
+          :model => {
+              :music => model
+          }.merge(account_info)
+      }
+
     end
 
     def text_message(data)

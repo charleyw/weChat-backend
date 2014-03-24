@@ -1,0 +1,12 @@
+%xml
+  %ToUserName= cdata userAccount
+  %FromUserName= cdata myAccount
+  %CreateTime= cdata Time.now.to_i
+  %MsgType= cdata 'news'
+  %Music
+    %Title= cdata music[:title]
+    %Description= cdata music[:description]
+    %MusicUrl= cdata music[:music_url]
+    %HQMusicUrl= cdata music[:hq_music_url]
+    %FuncFlag
+      ='0'
