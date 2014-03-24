@@ -1,13 +1,3 @@
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-46801609-2', 'github.com');
-  ga('send', 'pageview');
-
-</script>
 ## 微信公众平台后台框架
 [![Build Status](https://travis-ci.org/charleyw/weChat-backend.png?branch=master)](https://travis-ci.org/charleyw/weChat-backend)
 
@@ -41,6 +31,41 @@
 
 		ruby app.rb		
 
+## 模拟微信请求测试
+微信的每一个请求都会带上3个参数，`timestamp`时间戳, `nonce`随机数以及`signature`由token和前两个参数生成的值。因此，模拟测试需要生成token对应的signature:
+
+
+```
+export TIMESTAMP=1388674716
+export NONCE=1388564676
+export TOKEN=mytoken
+export SIGNATURE=$(ruby -e 'require "digest/sha1"; puts Digest::SHA1.hexdigest [ENV["TIMESTAMP"], ENV["NONCE"], ENV["TOKEN"]].sort!.join')
+curl -H 'Content-type:text/xml' -d@- localhost:4567/weixin?signature=$SIGNATURE&timestamp=$TIMESTAMP&nonce=$NONCE << EOF
+	<xml>
+	 <ToUserName><![CDATA[toUser]]></ToUserName>
+	 <FromUserName><![CDATA[fromUser]]></FromUserName> 
+	 <CreateTime>1348831860</CreateTime>
+	 <MsgType><![CDATA[text]]></MsgType>
+	 <Content><![CDATA[This is a text message]]></Content>
+	 <MsgId>1234567890123456</MsgId>
+	</xml>
+EOF
+	
+```	
+
+将会得到一段xml返回值，表示一切OK:
+
+```
+<xml>
+	<ToUserName><![CDATA[fromUser]]></ToUserName>
+	<FromUserName><![CDATA[toUser]]></FromUserName>
+	<CreateTime><![CDATA[1386522760]]></CreateTime>
+	<MsgType><![CDATA[text]]></MsgType>
+	<Content><![CDATA[你发送了如下内容: This is a text message]]></Content>
+</xml>
+
+```
+
 ## 与微信接口兼容情况：
 
 * 现在可以处理的消息类型（被动接受用户消息类型）：
@@ -61,58 +86,6 @@
 	| 文本消息 | ruby 字符串  |
 	| 图文事件 | ruby hash值  |
 
-## 如何使用
-* 创建一个文件，如app.rb，写入如下内容：
-
-		require ‘sinatra’
-		require 'wei-backend'
-		
-		on_text do
-			"Received a text message: #{params[:Content]}!!, and send back a text message!"
-		end
-
-* 启动
- 
-		ruby app.rb
-* 路径
-
-	`/weixin`被保留用作接受请求的路径，如你在本地直接启动之后，下面路径就可以接受微信格式的POST请求了：
-	
-		http://localhost:4567/weixin
-
-* 模拟微信测试
-微信的每一个请求都会带上3个参数，`timestamp`时间戳, `nonce`随机数以及`signature`由token和前两个参数生成的值。因此，模拟测试需要生成token对应的signature
-
-	```
-export TIMESTAMP=1388674716
-export NONCE=1388564676
-export TOKEN=mytoken
-export SIGNATURE=$(ruby -e 'require "digest/sha1"; puts Digest::SHA1.hexdigest [ENV["TIMESTAMP"], ENV["NONCE"], ENV["TOKEN"]].sort!.join')
-curl -H 'Content-type:text/xml' -d@- localhost:4567/weixin?signature=$SIGNATURE&timestamp=$TIMESTAMP&nonce=$NONCE << EOF
-	<xml>
-	 <ToUserName><![CDATA[toUser]]></ToUserName>
-	 <FromUserName><![CDATA[fromUser]]></FromUserName> 
-	 <CreateTime>1348831860</CreateTime>
-	 <MsgType><![CDATA[text]]></MsgType>
-	 <Content><![CDATA[This is a text message]]></Content>
-	 <MsgId>1234567890123456</MsgId>
-	</xml>
-EOF
-	
-	```	
-	
-	将会得到一段text返回值，一切OK:
-	
-	```
-<xml>
-	<ToUserName><![CDATA[fromUser]]></ToUserName>
-	<FromUserName><![CDATA[toUser]]></FromUserName>
-	<CreateTime><![CDATA[1386522760]]></CreateTime>
-	<MsgType><![CDATA[text]]></MsgType>
-	<Content><![CDATA[Received a text message: This is a text message!!, and send back a text message!]]></Content>
-</xml>
-
-	```
 	
 ## 接口说明：
 各个接口只能定义一次，重复定义会覆盖之前定义的接口
@@ -186,7 +159,5 @@ EOF
 	
 ## Liscense
 
-© 2013 Wang Chao. This code is distributed under the MIT license.
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/charleyw/wechat-backend/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+© 2014 Wang Chao. This code is distributed under the MIT license.
 
