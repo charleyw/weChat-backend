@@ -13,12 +13,17 @@ module WeiBackend
     end
 
     def create_model data
-      if (data.is_a?(Hash)||data.is_a?(Array)) && !data[:article_url].nil?
-        image_text_message(data)
-      elsif data.is_a?(Hash) && !data[:music_url].nil?
-        music_message(data)
-      else
-        text_message(data)
+      case data
+        when Array
+          image_text_message(data)
+        when Hash
+          if !data[:article_url].nil?
+            image_text_message(data)
+          elsif !data[:music_url].nil?
+            music_message(data)
+          end
+        else
+          text_message(data)
       end
     end
 
