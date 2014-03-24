@@ -76,14 +76,19 @@
 		ruby app.rb
 * 路径
 
-	`/weixin`被保留用作接受请求的路径，如你在本地直接启动之后，可以使用下列路径使用服务：
+	`/weixin`被保留用作接受请求的路径，如你在本地直接启动之后，下面路径就可以接受微信格式的POST请求了：
 	
 		http://localhost:4567/weixin
 
-* 测试
+* 模拟微信测试
+微信的每一个请求都会带上3个参数，`timestamp`时间戳, `nonce`随机数以及`signature`由token和前两个参数生成的值。因此，模拟测试需要生成token对应的signature
 
 	```
-curl -H 'Content-type:text/xml' -d@- localhost:4567/weixin << EOF
+export TIMESTAMP=1388674716
+export NONCE=1388564676
+export TOKEN=mytoken
+export SIGNATURE=$(ruby -e 'require "digest/sha1"; puts Digest::SHA1.hexdigest [ENV["TIMESTAMP"], ENV["NONCE"], ENV["TOKEN"]].sort!.join')
+curl -H 'Content-type:text/xml' -d@- localhost:4567/weixin?signature=$SIGNATURE&timestamp=$TIMESTAMP&nonce=$NONCE << EOF
 	<xml>
 	 <ToUserName><![CDATA[toUser]]></ToUserName>
 	 <FromUserName><![CDATA[fromUser]]></FromUserName> 
@@ -111,6 +116,9 @@ EOF
 	
 ## 接口说明：
 各个接口只能定义一次，重复定义会覆盖之前定义的接口
+
+* ### token
+用来配置你在微信公众平台设置的token，token的作用是用来的验证微信的请求是否合法。请确保你的token和微信公众平台设置的token一致。
 		
 * ### on_text
 当用户向微信公众发送消息的时候，微信会POST一段XML到公众号的后台服务器，`on_text`方法中定义的代码会处理这个请求，这`on_text`方法中可以访问到的请求参数：

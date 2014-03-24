@@ -76,7 +76,7 @@ describe 'app' do
 
     WeiBackend::MessageDispatcher.token 'combustest'
 
-    post '/weixin?signature=0d144fa22f4119dbb2f6fe9710f3b732fb45092b&timestamp=1388674716&nonce=1388564676', SUBSCRIBE_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml', 'token' => 'token'
+    post '/weixin?signature=0d144fa22f4119dbb2f6fe9710f3b732fb45092b&timestamp=1388674716&nonce=1388564676', SUBSCRIBE_EVENT_REQUEST, 'CONTENT_TYPE' => 'text/xml'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
     last_response.body.should include '<Content><![CDATA[Thank you for subscribe!]]></Content>'
   end
