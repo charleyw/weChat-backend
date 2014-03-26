@@ -14,10 +14,16 @@ describe 'weixin message handler' do
     dispatcher.create_model('text results').should == {:format => 'text', :model => {:content => 'text results', :myAccount=>"toUser", :userAccount=>"fromUser"}}
   end
 
-  it 'should return image text format result when model is a hash' do
+  it 'should return image text format result when model contains article url' do
     dispatcher = WeiBackend::MessageDispatcher.new
     dispatcher.params=PARSED_PARAMS
-    dispatcher.create_model({:url => "http://adc/"}).should == {:format=>"image_text", :model=>{:article_count=>1, :articles=>[{:url=>"http://adc/"}], :myAccount=>"toUser", :userAccount=>"fromUser"}}
+    dispatcher.create_model({:article_url => "http://article_url/"}).should == {:format=>"image_text", :model=>{:article_count=>1, :articles=>[{:article_url=>"http://article_url/"}], :myAccount=>"toUser", :userAccount=>"fromUser"}}
+  end
+
+  it 'should return music text format result when model contains music url' do
+    dispatcher = WeiBackend::MessageDispatcher.new
+    dispatcher.params=PARSED_PARAMS
+    dispatcher.create_model({:music_url => 'http://music_url/'}).should == {:format=>"music", :model=>{:music => {:music_url=> 'http://music_url/'}, :myAccount=>"toUser", :userAccount=>"fromUser"}}
   end
 
 end

@@ -19,12 +19,22 @@ describe 'app' do
 
   it 'should return user defined news message when receive a text request message' do
     WeiBackend::MessageDispatcher.on_text do
-      {:title => 'title', :description => 'desc', :picture_url => 'pic url', :url => 'url'}
+      {:title => 'title', :description => 'desc', :picture_url => 'pic url', :article_url => 'article url'}
     end
 
     post '/weixin', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
-    last_response.body.should include '<Title><![CDATA[title]]></Title>'
+    last_response.body.should include '<Url><![CDATA[article url]]></Url>'
+  end
+
+  it 'should return user defined music message when receive a text request message' do
+    WeiBackend::MessageDispatcher.on_text do
+      {:title => 'title', :description => 'desc', :music_url => 'url', :hd_music_url => 'hd music url'}
+    end
+
+    post '/weixin', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
+    last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
+    last_response.body.should include '<MusicUrl><![CDATA[url]]></MusicUrl>'
   end
 
   it 'should return news message when receive a text request message and user defined a multi-news' do
@@ -33,13 +43,13 @@ describe 'app' do
                :title => 'title',
                :description => 'desc',
                :picture_url => 'pic url',
-               :url => 'url'
+               :article_url => 'url'
            },
            {
                :title => 'title1',
                :description => 'desc1',
                :picture_url => 'pic url1',
-               :url => 'url1'
+               :article_url => 'url1'
            }]
     end
 
