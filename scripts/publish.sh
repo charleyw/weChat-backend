@@ -9,7 +9,6 @@ echo "Production version: $CURRENT_VERSION"
 if [ "$REPO_VERSION" != "$CURRENT_VERSION" ]; then
   echo "---" > ~/.gem/credentials
   echo ":rubygems_api_key: $API_KEY" >> ~/.gem/credentials
-  cat ~/.gem/credentials
   gem build wei-backend.gemspec
   chmod 0600 ~/.gem/credentials
   echo "pushing: wei-backend-$REPO_VERSION.gem"
