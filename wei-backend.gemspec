@@ -1,5 +1,4 @@
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
-require 'wei-backend/version'
 
 Gem::Specification.new 'wei-backend' do |s|
   s.description       = 'wei-backend is a DSL for quickly creating weixin open platform backend system.'
