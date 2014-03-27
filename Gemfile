@@ -1,13 +1,10 @@
 source 'http://rubygems.org'
 
+gem 'rake'
 gem 'json'
 gem 'haml'
 gem 'sinatra'
 gem 'nokogiri'
-gem 'capistrano'
-gem 'httparty'
-gem 'thin'
-gem 'hash_validator'
 
 group :test do
   gem 'rspec'

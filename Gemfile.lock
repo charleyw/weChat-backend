@@ -1,26 +1,15 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    capistrano (3.1.0)
-      i18n
-      rake (>= 10.0.0)
-      sshkit (~> 1.3)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     celluloid-io (0.15.0)
       celluloid (>= 0.15.0)
       nio4r (>= 0.5.0)
-    daemons (1.1.9)
     diff-lcs (1.2.5)
-    eventmachine (1.0.3)
     ffi (1.9.3)
     haml (4.0.5)
       tilt
-    hash_validator (0.2.7)
-    httparty (0.13.0)
-      json (~> 1.8)
-      multi_xml (>= 0.5.2)
-    i18n (0.6.9)
     json (1.8.1)
     listen (2.7.1)
       celluloid (>= 0.15.2)
@@ -28,10 +17,6 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     mini_portile (0.5.2)
-    multi_xml (0.5.5)
-    net-scp (1.1.2)
-      net-ssh (>= 2.6.5)
-    net-ssh (2.8.0)
     nio4r (1.0.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
@@ -63,34 +48,20 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
-    sshkit (1.3.0)
-      net-scp (>= 1.1.2)
-      net-ssh
-      term-ansicolor
-    term-ansicolor (1.3.0)
-      tins (~> 1.0)
-    thin (1.6.2)
-      daemons (>= 1.0.9)
-      eventmachine (>= 1.0.0)
-      rack (>= 1.0.0)
     tilt (1.4.1)
     timers (1.1.0)
-    tins (1.0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  capistrano
   haml
-  hash_validator
-  httparty
   json
   nokogiri
   rack-test
+  rake
   rerun
   rspec
   rspec-html-matchers
   shotgun
   sinatra
-  thin
