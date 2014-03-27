@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 1.9.3
   - 2.0.0
-after_success: ./scritps/publish.sh
+after_success: $PWD/scritps/publish.sh
 env:
   global:
   - secure: bTZNLgvbzsr0sye2O45Hqou32VjYkNP9I7574PA+Gw/n6FmTAQNi1X9oPVN+cuVLs9wlvrWHRTa27hT27idteyFVU9apTnutUQxQm/UCjPrIwWiS4pMY8+0TIxuBQx0aatuFkCIQRrwCi66Y/VFYWboJ9oqKYEK6py/WWUrU0lo=
