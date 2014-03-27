@@ -40,7 +40,7 @@ export TIMESTAMP=1388674716
 export NONCE=1388564676
 export TOKEN=mytoken
 export SIGNATURE=$(ruby -e 'require "digest/sha1"; puts Digest::SHA1.hexdigest [ENV["TIMESTAMP"], ENV["NONCE"], ENV["TOKEN"]].sort!.join')
-curl -H 'Content-type:text/xml' -d@- localhost:4567/weixin?signature=$SIGNATURE&timestamp=$TIMESTAMP&nonce=$NONCE << EOF
+curl -H 'Content-type:text/xml' -d@- "localhost:4567/weixin?signature=$SIGNATURE&timestamp=$TIMESTAMP&nonce=$NONCE" << EOF
 	<xml>
 	 <ToUserName><![CDATA[toUser]]></ToUserName>
 	 <FromUserName><![CDATA[fromUser]]></FromUserName> 
@@ -50,7 +50,6 @@ curl -H 'Content-type:text/xml' -d@- localhost:4567/weixin?signature=$SIGNATURE&
 	 <MsgId>1234567890123456</MsgId>
 	</xml>
 EOF
-	
 ```	
 
 将会得到一段xml返回值，表示一切OK:
@@ -61,9 +60,8 @@ EOF
 	<FromUserName><![CDATA[toUser]]></FromUserName>
 	<CreateTime><![CDATA[1386522760]]></CreateTime>
 	<MsgType><![CDATA[text]]></MsgType>
-	<Content><![CDATA[你发送了如下内容: This is a text message]]></Content>
+	<Content><![CDATA[你发送了如下内容: This is a text message!!]]></Content>
 </xml>
-
 ```
 
 ## 与微信接口兼容情况：
