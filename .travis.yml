@@ -5,4 +5,4 @@ rvm:
 after_success: $PWD/scripts/publish.sh
 env:
   global:
-    secure: Dqdk5Cq5yguMUsFPqbf6J3sdtaNQmDtRbUN5hJE9BRDUbKQmWwxeuPNIhlfnT2H6REwoN7wUQaNlhG0P4wpJ0oWh8ObxkX9NVeTQ77C92+//grSNM0eUESl5KoIhvCykt0suHcyl7HgaMk/au9UB950M0tQ0s3Gj1Ii4tKTqgx4=
+    secure: bSZ1qc0RRTqDEtMiEZY1uVNEB66JmN5yZ+ZaxPWlx3I30EreAY2fe4E/4bxsRsI+6W7eVh5uAl2ni7GJFH+e6FjRU+IsXmdIoCx8rQ2zBKPCF3oAhWeuSH/66sZR0Z7MPSr8DjzVLT4bvoFDTMf6kog7PU8wNR6wZqu3nbedanI=
