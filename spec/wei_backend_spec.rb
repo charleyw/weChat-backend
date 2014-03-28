@@ -19,7 +19,7 @@ describe 'app' do
 
   it 'should return user defined news message when receive a text request message' do
     WeiBackend::MessageDispatcher.on_text do
-      {:title => 'title', :description => 'desc', :picture_url => 'pic url', :article_url => 'article url'}
+      {:title => 'title', :description => 'desc', :picture_url => 'pic url', :url => 'article url'}
     end
 
     post '/weixin', TEXT_MESSAGE_REQUEST, 'CONTENT_TYPE' => 'text/xml'
@@ -43,13 +43,13 @@ describe 'app' do
                :title => 'title',
                :description => 'desc',
                :picture_url => 'pic url',
-               :article_url => 'url'
+               :url => 'url'
            },
            {
                :title => 'title1',
                :description => 'desc1',
                :picture_url => 'pic url1',
-               :article_url => 'url1'
+               :url => 'url1'
            }]
     end
 
@@ -57,6 +57,8 @@ describe 'app' do
     last_response.body.should include '<ToUserName><![CDATA[fromUser]]></ToUserName>'
     last_response.body.should include '<Title><![CDATA[title]]></Title>'
     last_response.body.should include '<Title><![CDATA[title1]]></Title>'
+    last_response.body.should include '<Url><![CDATA[url]]></Url>'
+    last_response.body.should include '<Url><![CDATA[url1]]></Url>'
   end
 
   it 'should echo location message when receive a location event message' do

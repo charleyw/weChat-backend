@@ -17,7 +17,7 @@ module WeiBackend
         when Array
           image_text_message(data)
         when Hash
-          if !data[:article_url].nil?
+          if !data[:url].nil?
             image_text_message(data)
           elsif !data[:music_url].nil?
             music_message(data)

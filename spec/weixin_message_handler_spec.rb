@@ -17,7 +17,7 @@ describe 'weixin message handler' do
   it 'should return image text format result when model contains article url' do
     dispatcher = WeiBackend::MessageDispatcher.new
     dispatcher.params=PARSED_PARAMS
-    dispatcher.create_model({:article_url => "http://article_url/"}).should == {:format=>"image_text", :model=>{:article_count=>1, :articles=>[{:article_url=>"http://article_url/"}], :myAccount=>"toUser", :userAccount=>"fromUser"}}
+    dispatcher.create_model({:url => "http://article_url/"}).should == {:format=>"image_text", :model=>{:article_count=>1, :articles=>[{:url=>"http://article_url/"}], :myAccount=>"toUser", :userAccount=>"fromUser"}}
   end
 
   it 'should return music text format result when model contains music url' do
