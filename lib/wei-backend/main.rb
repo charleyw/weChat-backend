@@ -6,9 +6,7 @@ set(:access_token) { |token_proc|
   condition do
     token = token_proc.call
     return true if token.nil? || token.empty?
-    origin_signature_strings = [token, params[:timestamp], params[:nonce]]
-    signature = Digest::SHA1.hexdigest origin_signature_strings.sort!.join
-    signature.eql? params[:signature]
+    Digest::SHA1.hexdigest([token, params[:timestamp], params[:nonce]].sort!.join).eql? params[:signature]
   end
 }
 
