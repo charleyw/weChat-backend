@@ -62,7 +62,7 @@ module WeiBackend
     end
 
     class << self
-      %w(text event voice location subscribe unsubscribe).each do |type|
+      %w(text image video link voice location subscribe unsubscribe).each do |type|
         define_method(:"on_#{type}") do |&block|
           define_method(:"handle_#{type}_message", &block)
         end
@@ -86,7 +86,7 @@ module WeiBackend
       end
     end
 
-    delegate :on_text, :on_event, :on_voice, :on_location, :on_subscribe, :on_unsubscribe, :token
+    delegate :on_text, :on_image, :on_video, :on_link, :on_voice, :on_location, :on_subscribe, :on_unsubscribe, :token
 
     class << self
       attr_accessor :target
